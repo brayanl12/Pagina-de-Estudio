@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil del Estudiante · Dashboard</title>
+  <!-- Font Awesome (iconos) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="dashboard">
+    <!-- ===== CABECERA ===== -->
+    <header class="student-header">
+      <div class="avatar-section">
+        <img src="https://i.pravatar.cc/120?img=11" alt="Foto de perfil" class="avatar">
+        <div class="student-info">
+          <h1>María Fernández</h1>
+          <p class="career">Ingeniería de Software · 4º Semestre</p>
+          <div class="contact">
+            <span><i class="fas fa-envelope"></i> maria.fernandez@edu.com</span>
+            <span><i class="fas fa-calendar-alt"></i> Ingreso: 2024-03-15</span>
+            <span class="status active"><i class="fas fa-circle"></i> Activo</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ===== RESUMEN GENERAL (tarjetas) ===== -->
+    <section class="summary-grid" id="summaryGrid">
+      <!-- generado por JS con datos simulados -->
+    </section>
+
+    <!-- ===== RENDIMIENTO ACADÉMICO + BARRAS ===== -->
+    <section class="performance-section">
+      <h2><i class="fas fa-chart-line"></i> Rendimiento por materia</h2>
+      <div class="performance-stats">
+        <div class="stat-card"><span class="label">Mejor materia</span><span id="bestSubject">—</span></div>
+        <div class="stat-card"><span class="label">Menor rendimiento</span><span id="worstSubject">—</span></div>
+        <div class="stat-card"><span class="label">Última calificación</span><span id="lastGrade">—</span></div>
+        <div class="stat-card"><span class="label">Promedio general</span><span id="globalAvg">—</span></div>
+      </div>
+      <div class="progress-bars" id="progressBars">
+        <!-- generado por JS -->
+      </div>
+    </section>
+
+    <!-- ===== EVOLUCIÓN (gráfico simple) ===== -->
+    <section class="evolution-section">
+      <h2><i class="fas fa-chart-bar"></i> Evolución mensual</h2>
+      <div class="chart" id="chartContainer">
+        <!-- generado por JS -->
+      </div>
+    </section>
+
+    <!-- ===== ASISTENCIA + METAS + LOGROS + RECOMENDACIONES ===== -->
+    <div class="grid-2col">
+      <!-- ASISTENCIA -->
+      <section class="attendance-card">
+        <h2><i class="fas fa-user-graduate"></i> Asistencia</h2>
+        <div class="attendance-stats">
+          <div><span class="num" id="attTotal">0</span> <span class="desc">Total</span></div>
+          <div><span class="num" id="attFaltas">0</span> <span class="desc">Faltas</span></div>
+          <div><span class="num" id="attRetrasos">0</span> <span class="desc">Retrasos</span></div>
+        </div>
+        <div class="progress-ring" id="attRing">
+          <div class="ring-bg"></div>
+          <div class="ring-fill" id="ringFill" style="--p:0%;"></div>
+          <span class="ring-label" id="attPercent">0%</span>
+        </div>
+      </section>
+
+      <!-- METAS ACADÉMICAS -->
+      <section class="goals-card">
+        <h2><i class="fas fa-bullseye"></i> Metas académicas</h2>
+        <div class="goals-list" id="goalsList"></div>
+        <div class="add-goal">
+          <input type="text" id="goalInput" placeholder="Ej: Obtener promedio de 4.5">
+          <button id="addGoalBtn"><i class="fas fa-plus"></i></button>
+        </div>
+      </section>
+    </div>
+
+    <!-- LOGROS + RECOMENDACIONES -->
+    <div class="grid-2col">
+      <section class="badges-card">
+        <h2><i class="fas fa-award"></i> Logros</h2>
+        <div class="badges" id="badgesContainer">
+          <!-- generado por JS -->
+        </div>
+      </section>
+
+      <section class="recommendations-card">
+        <h2><i class="fas fa-lightbulb"></i> Recomendaciones</h2>
+        <ul id="recommendationsList" class="rec-list"></ul>
+      </section>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
