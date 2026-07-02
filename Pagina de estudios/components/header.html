@@ -1,0 +1,41 @@
+<!-- components/header.html -->
+<header class="header">
+    <div class="header-left">
+        <a href="#" class="logo" id="logoLink">
+            <span class="logo-icon"><i class="fas fa-graduation-cap"></i></span>
+            <span class="logo-text">
+                <span>Estudio</span>
+                <span>• hub</span>
+            </span>
+        </a>
+        <nav class="nav-menu">
+            <a href="#" class="nav-link active" data-page="inicio" onclick="navegarA('inicio')">
+                <i class="fas fa-home"></i><span> Inicio</span>
+            </a>
+            <a href="#" class="nav-link" data-page="cursos" onclick="navegarA('cursos')">
+                <i class="fas fa-book-open"></i><span> Cursos</span>
+            </a>
+            <a href="#" class="nav-link" data-page="clases" onclick="navegarA('clases')">
+                <i class="fas fa-chalkboard-teacher"></i><span> Clases</span>
+            </a>
+            <a href="#" class="nav-link" data-page="calendario" onclick="navegarA('calendario')">
+                <i class="fas fa-calendar-alt"></i><span> Calendario</span>
+            </a>
+        </nav>
+    </div>
+    <div class="header-right">
+        <div class="search-wrapper">
+            <input type="text" placeholder="Buscar..." id="searchInput">
+            <button type="button" id="searchBtn">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+        <div class="profile" id="profileBtn">
+            <div class="profile-avatar">
+                <i class="fas fa-user"></i>
+            </div>
+            <span class="profile-name">María G.</span>
+            <span class="profile-dropdown"><i class="fas fa-chevron-down"></i></span>
+        </div>
+    </div>
+</header>

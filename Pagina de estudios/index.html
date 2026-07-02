@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EstudioHub - Panel de Estudio</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/cursos.css">
+</head>
+<body>
+    <div id="header-container"></div>
+
+    <main class="page-content">
+        <!-- ===== PÁGINA DE INICIO ===== -->
+        <section id="page-inicio" class="page-section active">
+            <!-- HERO SIMPLIFICADO -->
+            <div class="hero-simple">
+                <div class="hero-simple-content">
+                    <h1 class="hero-simple-title">
+                        <span class="highlight" id="nombreUsuario">María</span>
+                        <span class="hero-simple-sub">¿Lista para estudiar?</span>
+                    </h1>
+                    <p class="hero-simple-desc">
+                        <span id="greetingTime">Buenos días</span> · 
+                        <span id="fraseCorta">El conocimiento es poder</span>
+                    </p>
+                    <div class="hero-simple-actions">
+                        <button class="btn-hero-primary" onclick="irACursos()">
+                            <i class="fas fa-play"></i> Continuar Estudiando
+                        </button>
+                        <button class="btn-hero-secondary" onclick="editarPerfil()">
+                            <i class="fas fa-user-edit"></i> Perfil
+                        </button>
+                    </div>
+                </div>
+                <div class="hero-simple-emoji">📚</div>
+            </div>
+
+            <!-- DOS RECUADROS PRINCIPALES -->
+            <div class="inicio-grid">
+                <div class="inicio-card estadisticas-card">
+                    <div class="card-header">
+                        <span class="card-icon">📊</span>
+                        <h3>Tu Progreso</h3>
+                    </div>
+                    <div class="estadisticas-grid">
+                        <div class="estadistica-item">
+                            <span class="estadistica-numero" id="stat-promedio">0</span>
+                            <span class="estadistica-label">Promedio</span>
+                        </div>
+                        <div class="estadistica-item">
+                            <span class="estadistica-numero" id="stat-materias">0</span>
+                            <span class="estadistica-label">Materias</span>
+                        </div>
+                        <div class="estadistica-item">
+                            <span class="estadistica-numero" id="stat-materiales">0</span>
+                            <span class="estadistica-label">Materiales</span>
+                        </div>
+                        <div class="estadistica-item">
+                            <span class="estadistica-numero" id="stat-cursos">0</span>
+                            <span class="estadistica-label">Aprobadas</span>
+                        </div>
+                    </div>
+                    <div class="nivel-progreso-mini">
+                        <div class="nivel-info-mini">
+                            <span id="levelTitleMini">🌱</span>
+                            <span id="levelNameMini">Explorador</span>
+                            <span id="levelXpMini">0 XP</span>
+                        </div>
+                        <div class="nivel-bar-mini">
+                            <div class="nivel-bar-fill" id="levelProgressMini" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="inicio-card acciones-card">
+                    <div class="card-header">
+                        <span class="card-icon">🎯</span>
+                        <h3>Próximas Acciones</h3>
+                    </div>
+                    <div class="acciones-content">
+                        <div class="accion-item" id="nextClassSimple">
+                            <div class="accion-icon">📐</div>
+                            <div class="accion-info">
+                                <span class="accion-label">Próxima Clase</span>
+                                <span class="accion-titulo" id="nextClassName">Matemáticas</span>
+                                <span class="accion-hora" id="nextClassTime">14:30 · en 2 horas</span>
+                            </div>
+                            <button class="accion-btn" onclick="irACursos()">
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                        <div class="accion-item" id="dailyMissionSimple">
+                            <div class="accion-icon">📄</div>
+                            <div class="accion-info">
+                                <span class="accion-label">🎯 Misión del Día</span>
+                                <span class="accion-titulo" id="missionText">Completa 1 material</span>
+                                <span class="accion-hora" id="missionReward">🏆 10 XP</span>
+                            </div>
+                            <div class="mission-checkbox-simple" onclick="toggleMission(this)">
+                                <i class="fas fa-check"></i>
+                            </div>
+                        </div>
+                        <div class="frase-motivacional-mini">
+                            <span id="fraseMotivacionalMini">"El éxito es la suma de pequeños esfuerzos"</span>
+                            <button class="btn-refresh-frase" onclick="cambiarFraseMini()">
+                                <i class="fas fa-sync"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN DE VIDEOS -->
+            <div class="videos-section">
+                <div class="videos-header">
+                    <div>
+                        <h3>🎬 Videos de Estudio</h3>
+                        <p class="videos-subtitle">Comparte y aprende con videos educativos</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="abrirSubirVideo()">
+                        <i class="fas fa-plus"></i> Subir Video
+                    </button>
+                </div>
+                <div class="videos-grid" id="videos-grid"></div>
+                <div class="videos-empty" id="videos-empty" style="display: none;">
+                    <i class="fas fa-video"></i>
+                    <p>No hay videos aún</p>
+                    <p style="font-size: 0.85rem; color: #718096;">Sube tu primer video de estudio</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== CONTENEDOR PARA CURSOS ===== -->
+        <div id="cursos-container"></div>
+
+        <!-- ===== CONTENEDOR PARA CLASES ===== -->
+        <div id="clases-container"></div>
+
+        <!-- Página de Calendario (placeholder) -->
+        <section id="page-calendario" class="page-section">
+            <h1>📅 Calendario Académico</h1>
+            <p class="text-muted">Eventos y fechas importantes.</p>
+            <div class="card-grid" style="margin-top: 2rem;">
+                <div class="card">
+                    <i class="fas fa-calendar-check"></i>
+                    <h3>Examen Parcial</h3>
+                    <p>Matemáticas - 15 de junio</p>
+                    <p style="color: #d48c2c; font-size: 0.8rem; margin-top: 0.5rem;">⏰ En 5 días</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-calendar-check"></i>
+                    <h3>Entrega de Proyecto</h3>
+                    <p>Programación - 20 de junio</p>
+                    <p style="color: #b33636; font-size: 0.8rem; margin-top: 0.5rem;">⚠️ Fecha límite</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== MODALES GLOBALES ===== -->
+
+    <!-- Modal Editar Perfil -->
+    <div id="modal-perfil" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>✏️ Editar Perfil</h2>
+                <button class="modal-close" onclick="document.getElementById('modal-perfil').classList.remove('active')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="profile-edit-field">
+                <span class="field-label">Nombre</span>
+                <input type="text" id="edit-nombre">
+            </div>
+            <div class="profile-edit-field">
+                <span class="field-label">Email</span>
+                <input type="email" id="edit-email">
+            </div>
+            <div class="profile-edit-field">
+                <span class="field-label">Carrera</span>
+                <input type="text" id="edit-carrera">
+            </div>
+            <div class="profile-edit-field">
+                <span class="field-label">Semestre</span>
+                <input type="text" id="edit-semestre">
+            </div>
+            <div class="profile-edit-field">
+                <span class="field-label">Universidad</span>
+                <input type="text" id="edit-universidad">
+            </div>
+            <button class="btn btn-success" onclick="guardarPerfil()" style="width: 100%; margin-top: 1rem;">
+                <i class="fas fa-save"></i> Guardar Cambios
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal Agregar Materia -->
+    <div id="modal-agregar-materia" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📚 Agregar Materia</h2>
+                <button class="modal-close" onclick="Cursos.cerrarModal('modal-agregar-materia')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="form-group">
+                <label>Nombre de la materia *</label>
+                <input type="text" id="nueva-materia-nombre" placeholder="Ej: Álgebra Lineal">
+            </div>
+            <div class="form-group">
+                <label>Profesor</label>
+                <input type="text" id="nueva-materia-profesor" placeholder="Nombre del profesor">
+            </div>
+            <div class="form-group">
+                <label>Escala de calificación</label>
+                <select id="nueva-materia-escala">
+                    <option value="0-10">0 a 10</option>
+                    <option value="0-20">0 a 20</option>
+                    <option value="0-100">0 a 100</option>
+                    <option value="0-5">0 a 5</option>
+                    <option value="1-10">1 a 10</option>
+                    <option value="1-7">1 a 7</option>
+                    <option value="0-7">0 a 7</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Nota mínima para aprobar</label>
+                <input type="number" id="nueva-materia-nota-minima" placeholder="6.0" step="0.1">
+                <small style="color: #718096; font-size: 0.75rem;">Debe estar dentro de la escala seleccionada</small>
+            </div>
+            <button class="btn btn-success" onclick="Cursos.agregarMateria()" style="width: 100%;">
+                <i class="fas fa-plus"></i> Agregar Materia
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal Editar Materia -->
+    <div id="modal-editar-materia" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>✏️ Editar Materia</h2>
+                <button class="modal-close" onclick="Cursos.cerrarModal('modal-editar-materia')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="form-group">
+                <label>Nombre de la materia *</label>
+                <input type="text" id="editar-materia-nombre">
+            </div>
+            <div class="form-group">
+                <label>Profesor</label>
+                <input type="text" id="editar-materia-profesor">
+            </div>
+            <div class="form-group">
+                <label>Escala de calificación</label>
+                <select id="editar-materia-escala">
+                    <option value="0-10">0 a 10</option>
+                    <option value="0-20">0 a 20</option>
+                    <option value="0-100">0 a 100</option>
+                    <option value="0-5">0 a 5</option>
+                    <option value="1-10">1 a 10</option>
+                    <option value="1-7">1 a 7</option>
+                    <option value="0-7">0 a 7</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Nota mínima para aprobar</label>
+                <input type="number" id="editar-materia-nota-minima" step="0.1">
+            </div>
+            <button class="btn btn-primary" onclick="Cursos.guardarEditarMateria()" style="width: 100%;">
+                <i class="fas fa-save"></i> Guardar Cambios
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal Agregar Nota -->
+    <div id="modal-agregar-nota" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📊 Agregar Evaluación</h2>
+                <button class="modal-close" onclick="Cursos.cerrarModal('modal-agregar-nota')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="form-group">
+                <label>Nombre de la evaluación</label>
+                <input type="text" id="nueva-nota-nombre" placeholder="Ej: Examen Parcial 1">
+            </div>
+            <div class="form-group">
+                <label>Nota obtenida</label>
+                <input type="number" id="nueva-nota-valor" placeholder="7.5" step="0.1">
+                <small style="color: #718096; font-size: 0.75rem;">Usa la escala de la materia</small>
+            </div>
+            <div class="form-group">
+                <label>Porcentaje que vale (%)</label>
+                <input type="number" id="nueva-nota-porcentaje" placeholder="30" min="0" max="100" step="1">
+            </div>
+            <button class="btn btn-success" onclick="Cursos.agregarNota()" style="width: 100%;">
+                <i class="fas fa-plus"></i> Agregar Evaluación
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal Editar Nota -->
+    <div id="modal-editar-nota" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>✏️ Editar Evaluación</h2>
+                <button class="modal-close" onclick="Cursos.cerrarModal('modal-editar-nota')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="form-group">
+                <label>Nombre de la evaluación</label>
+                <input type="text" id="editar-nota-nombre">
+            </div>
+            <div class="form-group">
+                <label>Nota obtenida</label>
+                <input type="number" id="editar-nota-valor" step="0.1">
+            </div>
+            <div class="form-group">
+                <label>Porcentaje que vale (%)</label>
+                <input type="number" id="editar-nota-porcentaje" min="0" max="100" step="1">
+            </div>
+            <button class="btn btn-primary" onclick="Cursos.guardarEditarNota()" style="width: 100%;">
+                <i class="fas fa-save"></i> Guardar Cambios
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal Agregar Material -->
+    <div id="modal-agregar-material" class="modal">
+        <div class="modal-content" style="max-width: 600px;">
+            <div class="modal-header">
+                <h2>📄 Agregar Material de Estudio</h2>
+                <button class="modal-close" onclick="Cursos.cerrarModal('modal-agregar-material')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="form-group">
+                <label>Tipo de material *</label>
+                <select id="nuevo-material-tipo" onchange="Cursos.cambiarTipoMaterial()">
+                    <option value="pdf">📄 Archivo PDF</option>
+                    <option value="video">🎬 Video (YouTube/Vimeo)</option>
+                    <option value="enlace">🔗 Enlace web</option>
+                    <option value="nota">📝 Nota / Texto</option>
+                    <option value="documento">📊 Documento (Word/Excel)</option>
+                    <option value="imagen">🖼️ Imagen</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Título *</label>
+                <input type="text" id="nuevo-material-titulo" placeholder="Título del material">
+            </div>
+            
+            <div class="form-group">
+                <label>Descripción</label>
+                <textarea id="nuevo-material-descripcion" rows="2" placeholder="Descripción breve del material"></textarea>
+            </div>
+            
+            <div class="form-group" id="campo-archivo">
+                <label>Seleccionar archivo</label>
+                <div class="file-upload-area" onclick="document.getElementById('file-input').click()">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Haz clic para subir un archivo</p>
+                    <small>PDF, Word, Excel, Imagen (máx 2MB)</small>
+                </div>
+                <input type="file" id="file-input" style="display: none;" accept=".pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg,.gif,.webp" onchange="window.handleFileSelect(event)">
+                <div id="file-name-display" style="display: none; margin-top: 0.5rem; padding: 0.5rem; background: #e6f7e6; border-radius: 8px; color: #1a7a3a; font-size: 0.85rem;">
+                    <i class="fas fa-check-circle"></i> <span id="file-name-text"></span>
+                </div>
+            </div>
+            
+            <div class="form-group" id="campo-video" style="display: none;">
+                <label>URL del video</label>
+                <input type="url" id="nuevo-material-video-url" placeholder="https://www.youtube.com/watch?v=...">
+                <small style="color: #718096; font-size: 0.75rem;">Soporta YouTube, Vimeo y otros</small>
+            </div>
+            
+            <div class="form-group" id="campo-enlace" style="display: none;">
+                <label>URL del enlace</label>
+                <input type="url" id="nuevo-material-enlace-url" placeholder="https://ejemplo.com/...">
+            </div>
+            
+            <div class="form-group" id="campo-nota" style="display: none;">
+                <label>Contenido de la nota</label>
+                <textarea id="nuevo-material-nota-contenido" rows="5" placeholder="Escribe tu nota aquí..."></textarea>
+            </div>
+            
+            <button class="btn btn-success" onclick="Cursos.agregarMaterial()" style="width: 100%; margin-top: 0.5rem;">
+                <i class="fas fa-plus"></i> Agregar Material
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal Ver Material -->
+    <div id="modal-ver-material" class="modal modal-visor">
+        <div class="modal-content visor-content" style="max-width: 900px; max-height: 90vh;">
+            <div class="modal-header">
+                <h2 id="visor-titulo">Material</h2>
+                <button class="modal-close" onclick="Cursos.cerrarModal('modal-ver-material')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="visor-contenido" class="visor-contenido">
+                <div class="visor-loading">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Cargando material...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Subir Video -->
+    <div id="modal-subir-video" class="modal">
+        <div class="modal-content" style="max-width: 550px;">
+            <div class="modal-header">
+                <h2>🎬 Subir Video</h2>
+                <button class="modal-close" onclick="cerrarModalSubirVideo()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="form-group">
+                <label>Título del video *</label>
+                <input type="text" id="video-titulo" placeholder="Ej: Clase de Matemáticas - Derivadas">
+            </div>
+            <div class="form-group">
+                <label>Descripción</label>
+                <textarea id="video-descripcion" rows="3" placeholder="Breve descripción del video"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Categoría</label>
+                <select id="video-categoria">
+                    <option value="matemáticas">📐 Matemáticas</option>
+                    <option value="física">⚛️ Física</option>
+                    <option value="química">🧪 Química</option>
+                    <option value="programación">💻 Programación</option>
+                    <option value="historia">📜 Historia</option>
+                    <option value="idiomas">🌍 Idiomas</option>
+                    <option value="otro">📌 Otro</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Seleccionar archivo de video *</label>
+                <div class="file-upload-area" onclick="document.getElementById('video-file-input').click()">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Haz clic para seleccionar un video</p>
+                    <small>MP4, WebM, MOV, AVI (máx 2MB para guardar)</small>
+                </div>
+                <input type="file" id="video-file-input" style="display: none;" accept=".mp4,.webm,.mov,.avi,.mkv,.flv,.wmv" onchange="window.handleVideoSelect(event)">
+                <div id="video-file-name-display" style="display: none; margin-top: 0.5rem; padding: 0.5rem; background: #e6f7e6; border-radius: 8px; color: #1a7a3a; font-size: 0.85rem;">
+                    <i class="fas fa-check-circle"></i> <span id="video-file-name-text"></span>
+                </div>
+            </div>
+            <button class="btn btn-success" onclick="subirVideoArchivo()" style="width: 100%; margin-top: 0.5rem;">
+                <i class="fas fa-upload"></i> Subir Video
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal Ver Video -->
+    <div id="modal-ver-video" class="modal modal-visor">
+        <div class="modal-content visor-content" style="max-width: 800px; max-height: 90vh;">
+            <div class="modal-header">
+                <h2 id="video-visor-titulo">Video</h2>
+                <button class="modal-close" onclick="cerrarModalVerVideo()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="video-visor-contenido" class="visor-contenido">
+                <div class="visor-loading">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Cargando video...</p>
+                </div>
+            </div>
+            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #eef2f6;">
+                <p id="video-visor-descripcion" style="color: #4a5568;"></p>
+                <p id="video-visor-meta" style="font-size: 0.8rem; color: #718096; margin-top: 0.3rem;"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALES DE CLASES -->
+    <div id="modal-agregar-clase" class="modal">
+        <div class="modal-content" style="max-width: 550px;">
+            <div class="modal-header">
+                <h2>📚 Agregar Clase</h2>
+                <button class="modal-close" onclick="cerrarModalAgregarClase()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="form-group">
+                <label>Nombre de la clase *</label>
+                <input type="text" id="clase-nombre" placeholder="Ej: Clase de Matemáticas">
+            </div>
+            <div class="form-group">
+                <label>Materia</label>
+                <select id="clase-materia">
+                    <option value="general">📚 General</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Fecha *</label>
+                <input type="date" id="clase-fecha">
+            </div>
+            <div class="form-group">
+                <label>Hora *</label>
+                <input type="time" id="clase-hora">
+            </div>
+            <div class="form-group">
+                <label>Plataforma</label>
+                <select id="clase-plataforma">
+                    <option value="zoom">Zoom</option>
+                    <option value="meet">Google Meet</option>
+                    <option value="teams">Microsoft Teams</option>
+                    <option value="otro">Otro</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Enlace de la clase</label>
+                <input type="url" id="clase-enlace" placeholder="https://zoom.us/j/...">
+                <small style="color: #718096; font-size: 0.75rem;">Pega el enlace de la videollamada</small>
+            </div>
+            <div class="form-group">
+                <label>Recordatorio (minutos antes)</label>
+                <select id="clase-recordatorio">
+                    <option value="5">5 minutos</option>
+                    <option value="10" selected>10 minutos</option>
+                    <option value="15">15 minutos</option>
+                    <option value="30">30 minutos</option>
+                    <option value="60">1 hora</option>
+                </select>
+            </div>
+            <button class="btn btn-success" onclick="agregarClase()" style="width: 100%; margin-top: 0.5rem;">
+                <i class="fas fa-plus"></i> Agregar Clase
+            </button>
+        </div>
+    </div>
+
+    <div id="modal-ver-clase" class="modal">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h2 id="ver-clase-titulo">Clase</h2>
+                <button class="modal-close" onclick="cerrarModalVerClase()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="ver-clase-contenido">
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem;">
+                    <span id="ver-clase-materia" style="background: rgba(102, 126, 234, 0.1); padding: 0.2rem 0.8rem; border-radius: 50px; color: #667eea; font-weight: 600; font-size: 0.85rem;">📚 General</span>
+                    <span id="ver-clase-estado" class="badge-estado proxima">Próxima</span>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem;">
+                    <p><strong>📅 Fecha:</strong> <span id="ver-clase-fecha">-</span></p>
+                    <p><strong>⏰ Hora:</strong> <span id="ver-clase-hora">-</span></p>
+                    <p><strong>💻 Plataforma:</strong> <span id="ver-clase-plataforma">-</span></p>
+                    <p><strong>🔗 Enlace:</strong> <a id="ver-clase-enlace" href="#" target="_blank" style="color: #667eea; word-break: break-all;">-</a></p>
+                </div>
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                    <button class="btn btn-primary" onclick="unirseAClase()" style="flex: 1;">
+                        <i class="fas fa-video"></i> Unirse a la clase
+                    </button>
+                    <button class="btn btn-danger" onclick="eliminarClase()">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="js/data.js"></script>
+    <script>
+        // Función para ir a cursos
+        function irACursos() {
+            const link = document.querySelector('.nav-link[data-page="cursos"]');
+            if (link) link.click();
+        }
+
+        // Función para toggle misión
+        function toggleMission(el) {
+            el.classList.toggle('completed');
+            if (el.classList.contains('completed')) {
+                alert('🎉 ¡Misión completada! +10 XP bonus');
+            }
+        }
+
+        // Funciones para videos
+        function cerrarModalVerVideo() {
+            document.getElementById('modal-ver-video').classList.remove('active');
+        }
+
+        function cerrarModalSubirVideo() {
+            document.getElementById('modal-subir-video').classList.remove('active');
+        }
+
+        // Funciones para clases (se definen en clases.js)
+        function abrirAgregarClase() {}
+        function cerrarModalAgregarClase() {}
+        function cerrarModalVerClase() {}
+        function agregarClase() {}
+        function eliminarClase() {}
+        function unirseAClase() {}
+        function cambiarMes() {}
+
+        // Cargar header
+        fetch('components/header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+                const headerScript = document.createElement('script');
+                headerScript.src = 'js/header.js';
+                document.body.appendChild(headerScript);
+            })
+            .catch(error => console.error('Error cargando header:', error));
+
+        // Cargar cursos
+        fetch('sections/cursos.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('cursos-container').innerHTML = data;
+                const cursosScript = document.createElement('script');
+                cursosScript.src = 'js/cursos.js';
+                cursosScript.onload = function() {
+                    if (window.Cursos) {
+                        window.Cursos.init();
+                    }
+                };
+                document.body.appendChild(cursosScript);
+            })
+            .catch(error => console.error('Error cargando cursos:', error));
+
+        // Cargar clases
+        fetch('sections/clases.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('clases-container').innerHTML = data;
+                const clasesScript = document.createElement('script');
+                clasesScript.src = 'js/clases.js';
+                clasesScript.onload = function() {
+                    if (window.Clases) {
+                        window.Clases.init();
+                    }
+                };
+                document.body.appendChild(clasesScript);
+            })
+            .catch(error => console.error('Error cargando clases:', error));
+
+        // Cargar script principal
+        const pageScript = document.createElement('script');
+        pageScript.src = 'js/script.js';
+        document.body.appendChild(pageScript);
+    </script>
+</body>
+</html>

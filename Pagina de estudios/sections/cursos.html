@@ -1,0 +1,31 @@
+<!-- sections/cursos.html -->
+<section id="page-cursos" class="page-section">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
+        <div>
+            <h1>📚 Mis Cursos</h1>
+            <p class="text-muted">Gestiona tus materias, notas y materiales de estudio.</p>
+        </div>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <button class="btn btn-primary" onclick="Cursos.abrirAgregarMateria()">
+                <i class="fas fa-plus"></i> Agregar Materia
+            </button>
+        </div>
+    </div>
+    
+    <div class="cursos-container">
+        <div class="cursos-sidebar" id="cursos-sidebar">
+            <div class="sidebar-header">
+                <h3>📚 Mis Materias</h3>
+                <span class="badge" id="materias-count">0</span>
+            </div>
+            <div id="materias-list"></div>
+        </div>
+        <div class="cursos-content" id="cursos-content">
+            <div class="empty-state">
+                <i class="fas fa-book-open"></i>
+                <h3>Selecciona una materia</h3>
+                <p>Elige una materia del panel lateral para ver su contenido</p>
+            </div>
+        </div>
+    </div>
+</section>
