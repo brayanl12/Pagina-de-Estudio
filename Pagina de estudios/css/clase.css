@@ -1,4 +1,4 @@
-/* css/clases.css - Estilos completos para el apartado de Clases */
+/* css/clase.css - Estilos completos para el apartado de Clases (incluye Constructor de Horario) */
 
 /* ===== TABS ===== */
 .clases-tabs {
@@ -433,303 +433,6 @@
     50% { transform: scale(1.05); }
 }
 
-/* ================================================
-   ===== CONSTRUCTOR DE HORARIO =====
-   ================================================ */
-
-.horario-container {
-    display: flex;
-    gap: 1.5rem;
-    min-height: 550px;
-}
-
-.horario-bloques-panel {
-    flex: 0 0 250px;
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(20px);
-    border-radius: 20px;
-    padding: 1.2rem;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    max-height: 600px;
-    overflow-y: auto;
-}
-
-.horario-bloques-panel::-webkit-scrollbar {
-    width: 4px;
-}
-
-.horario-bloques-panel::-webkit-scrollbar-track {
-    background: rgba(226, 232, 240, 0.3);
-    border-radius: 10px;
-}
-
-.horario-bloques-panel::-webkit-scrollbar-thumb {
-    background: #667eea;
-    border-radius: 10px;
-}
-
-.horario-bloques-panel h3 {
-    font-size: 1rem;
-    font-weight: 700;
-    color: #1a202c;
-    margin: 0 0 0.2rem 0;
-}
-
-.bloques-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.5rem;
-    margin: 0.8rem 0;
-}
-
-.bloque-item {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.5rem 0.6rem;
-    background: rgba(255, 255, 255, 0.6);
-    border-radius: 10px;
-    cursor: grab;
-    transition: all 0.3s ease;
-    border: 2px solid transparent;
-    font-size: 0.8rem;
-}
-
-.bloque-item:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    border-color: #667eea;
-}
-
-.bloque-item:active {
-    cursor: grabbing;
-}
-
-.bloque-item .bloque-color {
-    width: 16px;
-    height: 16px;
-    border-radius: 4px;
-    flex-shrink: 0;
-}
-
-.bloque-item span {
-    font-weight: 500;
-    color: #1a202c;
-}
-
-.bloque-item .bloque-duracion {
-    font-size: 0.5rem;
-    color: #718096;
-    background: rgba(255, 255, 255, 0.3);
-    padding: 0.05rem 0.3rem;
-    border-radius: 4px;
-    margin-left: auto;
-}
-
-.bloque-personalizado {
-    margin-top: 0.8rem;
-    padding-top: 0.8rem;
-    border-top: 1px solid rgba(226, 232, 240, 0.3);
-}
-
-.bloque-personalizado input[type="text"],
-.bloque-personalizado input[type="number"] {
-    padding: 0.4rem;
-    border: 1px solid #dce4ec;
-    border-radius: 8px;
-    font-size: 0.85rem;
-    font-family: inherit;
-    background: rgba(255, 255, 255, 0.6);
-}
-
-.bloque-personalizado input[type="text"]:focus,
-.bloque-personalizado input[type="number"]:focus {
-    outline: none;
-    border-color: #667eea;
-}
-
-/* ===== HORARIO SEMANAL CON LÍNEAS VISIBLES ===== */
-.horario-semanal {
-    flex: 1;
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(20px);
-    border-radius: 20px;
-    padding: 1rem;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    overflow-x: auto;
-    max-height: 600px;
-    overflow-y: auto;
-}
-
-.horario-semanal::-webkit-scrollbar {
-    width: 4px;
-}
-
-.horario-semanal::-webkit-scrollbar-track {
-    background: rgba(226, 232, 240, 0.3);
-    border-radius: 10px;
-}
-
-.horario-semanal::-webkit-scrollbar-thumb {
-    background: #667eea;
-    border-radius: 10px;
-}
-
-/* HEADER DEL HORARIO */
-.horario-header {
-    display: grid;
-    grid-template-columns: 50px repeat(7, 1fr);
-    gap: 2px;
-    margin-bottom: 2px;
-    font-weight: 600;
-    font-size: 0.75rem;
-    text-align: center;
-    position: sticky;
-    top: 0;
-    background: rgba(255, 255, 255, 0.95);
-    z-index: 10;
-    padding: 0.5rem 0;
-    border-radius: 8px;
-    border-bottom: 3px solid #667eea;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-}
-
-.horario-header .hora-label {
-    color: #718096;
-    font-size: 0.7rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-}
-
-.horario-header .dia-header {
-    padding: 0.3rem 0;
-    background: rgba(102, 126, 234, 0.08);
-    border-radius: 6px;
-    color: #2d3748;
-    font-size: 0.7rem;
-    font-weight: 700;
-}
-
-/* GRID DEL HORARIO */
-.horario-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-}
-
-.horario-fila {
-    display: grid;
-    grid-template-columns: 50px repeat(7, 1fr);
-    gap: 1px;
-    min-height: 44px;
-    border-bottom: 1px solid rgba(102, 126, 234, 0.15);
-}
-
-.horario-fila:last-child {
-    border-bottom: none;
-}
-
-.horario-fila:nth-child(even) {
-    background: rgba(102, 126, 234, 0.02);
-}
-
-.horario-fila:hover {
-    background: rgba(102, 126, 234, 0.04);
-}
-
-.horario-hora {
-    font-size: 0.65rem;
-    color: #718096;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: 4px;
-    border-right: 2px solid rgba(102, 126, 234, 0.15);
-}
-
-.horario-celda {
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 4px;
-    min-height: 42px;
-    transition: all 0.3s ease;
-    position: relative;
-    border: 1px dashed transparent;
-}
-
-.horario-celda.drag-over {
-    border-color: #667eea;
-    background: rgba(102, 126, 234, 0.12);
-    border-style: solid;
-}
-
-.horario-celda .bloque-horario {
-    padding: 0.2rem 0.3rem;
-    border-radius: 4px;
-    font-size: 0.6rem;
-    font-weight: 600;
-    color: white;
-    cursor: pointer;
-    height: 100%;
-    min-height: 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    transition: all 0.3s ease;
-    position: relative;
-    word-break: break-word;
-    line-height: 1.2;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-}
-
-.horario-celda .bloque-horario:hover {
-    transform: scale(1.03);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    z-index: 2;
-}
-
-.horario-celda .bloque-horario .bloque-tiempo {
-    font-size: 0.5rem;
-    opacity: 0.8;
-    font-weight: 400;
-}
-
-.horario-celda .bloque-horario .btn-eliminar-bloque {
-    position: absolute;
-    top: -6px;
-    right: -6px;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: #fc8181;
-    color: white;
-    border: none;
-    font-size: 0.6rem;
-    cursor: pointer;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    line-height: 1;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-}
-
-.horario-celda .bloque-horario:hover .btn-eliminar-bloque {
-    display: flex;
-}
-
-/* ===== BLOQUES COMBINADOS (MÁS ALTOS) ===== */
-.horario-celda .bloque-horario.combinado {
-    min-height: 60px;
-    font-size: 0.7rem;
-    border-left: 3px solid rgba(255, 255, 255, 0.3);
-    border-right: 3px solid rgba(255, 255, 255, 0.3);
-}
-
 /* ===== FORMULARIOS ===== */
 .dia-checkbox {
     display: inline-flex;
@@ -771,6 +474,11 @@
     font-size: 0.85rem;
 }
 
+.horario-adicional .btn {
+    padding: 0.2rem 0.5rem;
+    font-size: 0.7rem;
+}
+
 /* ===== EMPTY STATE ===== */
 .empty-state {
     text-align: center;
@@ -790,22 +498,694 @@
     color: #718096;
 }
 
+/* ================================================
+   ===== CONSTRUCTOR DE HORARIO MODERNO =====
+   ================================================ */
+
+.horario-constructor {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    margin-top: 1rem;
+}
+
+.horario-constructor .horario-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.horario-constructor .horario-header h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #1a202c;
+    margin: 0;
+}
+
+.horario-constructor .horario-header p {
+    font-size: 0.85rem;
+    color: #718096;
+    margin: 0.2rem 0 0;
+}
+
+.horario-constructor .horario-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.horario-constructor .horario-actions .btn {
+    padding: 0.4rem 1rem;
+    font-size: 0.8rem;
+    border-radius: 10px;
+}
+
+/* ===== TABS DE HORARIOS ===== */
+.horario-tabs {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.8rem;
+    padding: 0.3rem;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+}
+
+.horario-tab-btn {
+    padding: 0.3rem 1rem;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    font-weight: 600;
+    font-size: 0.75rem;
+    color: #4a5568;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-family: inherit;
+}
+
+.horario-tab-btn:hover {
+    background: rgba(255, 255, 255, 0.6);
+}
+
+.horario-tab-btn.active {
+    background: white;
+    color: #667eea;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.horario-tab-btn .btn-eliminar-horario {
+    background: none;
+    border: none;
+    color: #a0aec0;
+    cursor: pointer;
+    padding: 0 2px;
+    font-size: 0.6rem;
+    transition: color 0.3s ease;
+}
+
+.horario-tab-btn .btn-eliminar-horario:hover {
+    color: #e53e3e;
+}
+
+.horario-tab-btn .badge-horario {
+    background: #667eea;
+    color: white;
+    padding: 0.05rem 0.4rem;
+    border-radius: 50px;
+    font-size: 0.55rem;
+}
+
+/* ===== VISTA PREVIA EN CLASES ===== */
+.horario-vista-previa {
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 16px;
+    padding: 1rem;
+    border: 1px solid rgba(226, 232, 240, 0.3);
+    margin-top: 0.5rem;
+    position: relative;
+    overflow-x: auto;
+}
+
+.horario-vista-previa .candado-badge {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 0.15rem 0.8rem;
+    border-radius: 20px;
+    border: 1px solid #e2e8f0;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    transition: all 0.3s ease;
+}
+
+.horario-vista-previa .candado-badge i {
+    color: #718096;
+    font-size: 0.7rem;
+    transition: all 0.3s ease;
+}
+
+.horario-vista-previa .candado-badge span {
+    font-size: 0.6rem;
+    color: #718096;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.horario-vista-previa table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.7rem;
+    min-width: 550px;
+}
+
+.horario-vista-previa table th,
+.horario-vista-previa table td {
+    border: 1px solid #e2e8f0;
+    padding: 0.2rem;
+    text-align: center;
+}
+
+.horario-vista-previa table th {
+    background: rgba(102, 126, 234, 0.06);
+    font-weight: 700;
+    color: #2d3748;
+    font-size: 0.65rem;
+}
+
+.horario-vista-previa .hora-columna-vista {
+    font-weight: 600;
+    color: #4a5568;
+    font-size: 0.6rem;
+    background: #f7fafc;
+}
+
+.horario-vista-previa .bloque-vista {
+    display: inline-block;
+    border-radius: 4px;
+    color: white;
+    font-weight: 600;
+    text-align: center;
+    width: 100%;
+    padding: 0.1rem 0.2rem;
+    font-size: 0.5rem;
+    min-height: 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.2;
+    transition: all 0.2s ease;
+}
+
+.horario-vista-previa .bloque-vista:hover {
+    transform: scale(1.02);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.horario-vista-previa .bloque-vista .bloque-titulo-vista {
+    font-weight: 700;
+    font-size: 0.5rem;
+}
+
+.horario-vista-previa .bloque-vista .bloque-sub-vista {
+    font-size: 0.4rem;
+    opacity: 0.8;
+}
+
+/* ===== CONTENEDOR PRINCIPAL DEL CONSTRUCTOR ===== */
+.horario-container-principal {
+    display: flex;
+    gap: 1.5rem;
+    min-height: 550px;
+}
+
+/* ===== PANEL DE BLOQUES ===== */
+.horario-panel-bloques {
+    flex: 0 0 240px;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    display: flex;
+    flex-direction: column;
+    max-height: 600px;
+    overflow: hidden;
+}
+
+.horario-panel-bloques .panel-titulo {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #1a202c;
+    margin: 0 0 0.2rem 0;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.horario-panel-bloques .panel-subtitulo {
+    font-size: 0.7rem;
+    color: #718096;
+    margin-bottom: 0.5rem;
+    flex-shrink: 0;
+}
+
+.horario-bloques-scroll {
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
+    margin-bottom: 0.3rem;
+    padding-right: 4px;
+}
+
+.horario-bloques-scroll::-webkit-scrollbar {
+    width: 4px;
+}
+
+.horario-bloques-scroll::-webkit-scrollbar-track {
+    background: rgba(226, 232, 240, 0.3);
+    border-radius: 10px;
+}
+
+.horario-bloques-scroll::-webkit-scrollbar-thumb {
+    background: #667eea;
+    border-radius: 10px;
+}
+
+.horario-bloques-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.4rem;
+}
+
+.horario-bloque-item {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.4rem 0.4rem;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    font-size: 0.7rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.horario-bloque-item:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: #667eea;
+    background: white;
+}
+
+.horario-bloque-item .bloque-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    flex-shrink: 0;
+}
+
+.horario-bloque-item .bloque-nombre {
+    font-weight: 600;
+    color: #1a202c;
+    flex: 1;
+    font-size: 0.65rem;
+}
+
+.horario-bloque-item .bloque-duracion {
+    font-size: 0.45rem;
+    color: #718096;
+    background: rgba(226, 232, 240, 0.3);
+    padding: 0.05rem 0.3rem;
+    border-radius: 3px;
+}
+
+/* Personalización */
+.horario-personalizado {
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(226, 232, 240, 0.3);
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+}
+
+.horario-personalizado h4 {
+    font-size: 0.7rem;
+    margin-bottom: 0.2rem;
+    color: #2d3748;
+    font-weight: 600;
+}
+
+.horario-personalizado .personalizado-row {
+    display: flex;
+    gap: 0.3rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.horario-personalizado input[type="text"] {
+    flex: 1;
+    min-width: 40px;
+    padding: 0.2rem 0.3rem;
+    border: 1px solid #dce4ec;
+    border-radius: 5px;
+    font-size: 0.65rem;
+    font-family: inherit;
+    background: rgba(255, 255, 255, 0.6);
+}
+
+.horario-personalizado input[type="text"]:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.horario-personalizado input[type="color"] {
+    width: 24px;
+    height: 24px;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.horario-personalizado input[type="number"] {
+    width: 35px;
+    padding: 0.2rem 0.2rem;
+    border: 1px solid #dce4ec;
+    border-radius: 5px;
+    font-size: 0.65rem;
+    font-family: inherit;
+    background: rgba(255, 255, 255, 0.6);
+}
+
+.horario-personalizado input[type="number"]:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.horario-personalizado .btn {
+    padding: 0.2rem 0.4rem;
+    font-size: 0.6rem;
+}
+
+/* Leyenda fija */
+.horario-leyenda-panel {
+    padding-top: 0.4rem;
+    border-top: 1px solid rgba(226, 232, 240, 0.3);
+    flex-shrink: 0;
+}
+
+.horario-leyenda-panel .leyenda-titulo {
+    font-size: 0.55rem;
+    color: #718096;
+    margin-bottom: 0.1rem;
+    font-weight: 600;
+}
+
+.horario-leyenda-panel .leyenda-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.05rem 0.2rem;
+}
+
+.horario-leyenda-panel .leyenda-item {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    font-size: 0.5rem;
+    color: #4a5568;
+}
+
+.horario-leyenda-panel .leyenda-color {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 3px;
+    flex-shrink: 0;
+}
+
+/* ===== TABLA DEL HORARIO ===== */
+.horario-tabla-wrapper {
+    flex: 1;
+    overflow-x: auto;
+    overflow-y: auto;
+    max-height: 600px;
+    border-radius: 16px;
+    border: 1px solid rgba(226, 232, 240, 0.3);
+    background: white;
+}
+
+.horario-tabla-wrapper::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.horario-tabla-wrapper::-webkit-scrollbar-track {
+    background: rgba(226, 232, 240, 0.3);
+    border-radius: 10px;
+}
+
+.horario-tabla-wrapper::-webkit-scrollbar-thumb {
+    background: #667eea;
+    border-radius: 10px;
+}
+
+.horario-tabla {
+    width: 100%;
+    min-width: 650px;
+    border-collapse: collapse;
+    table-layout: fixed;
+    background: white;
+    font-size: 0.75rem;
+}
+
+.horario-tabla th,
+.horario-tabla td {
+    border: 1px solid #e2e8f0;
+    padding: 0;
+    text-align: center;
+    position: relative;
+}
+
+.horario-tabla th {
+    background: rgba(102, 126, 234, 0.06);
+    font-weight: 700;
+    color: #2d3748;
+    font-size: 0.7rem;
+    padding: 0.4rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.horario-tabla .hora-columna {
+    width: 45px;
+    min-width: 45px;
+    max-width: 45px;
+    background: #f7fafc;
+    font-weight: 600;
+    color: #4a5568;
+    font-size: 0.6rem;
+    padding: 0.15rem 0;
+    position: sticky;
+    left: 0;
+    z-index: 5;
+    border-right: 2px solid #e2e8f0;
+}
+
+.horario-tabla td:not(.hora-columna) {
+    min-width: 70px;
+    height: 38px;
+    min-height: 38px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    vertical-align: top;
+    background: white;
+}
+
+.horario-tabla td:not(.hora-columna):hover {
+    background: rgba(102, 126, 234, 0.04);
+}
+
+.horario-tabla td.drag-over {
+    background: rgba(102, 126, 234, 0.12) !important;
+    border-color: #667eea;
+    border-style: dashed;
+}
+
+.horario-tabla td .celda-content {
+    width: 100%;
+    height: 100%;
+    min-height: 38px;
+    position: relative;
+}
+
+/* ===== BLOQUES DENTRO DE LA TABLA ===== */
+.bloque-horario-item-tabla {
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    right: 1px;
+    width: calc(100% - 2px);
+    padding: 0.1rem 0.15rem;
+    border-radius: 4px;
+    font-size: 0.5rem;
+    font-weight: 500;
+    color: white;
+    cursor: grab;
+    transition: all 0.2s ease;
+    overflow: hidden;
+    z-index: 2;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    line-height: 1.1;
+    min-height: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.bloque-horario-item-tabla:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    z-index: 3;
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.bloque-horario-item-tabla:active {
+    cursor: grabbing;
+}
+
+.bloque-horario-item-tabla .bloque-titulo {
+    font-weight: 700;
+    font-size: 0.55rem;
+    line-height: 1.1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    padding: 0 2px;
+}
+
+.bloque-horario-item-tabla .bloque-hora {
+    font-size: 0.4rem;
+    opacity: 0.85;
+    white-space: nowrap;
+}
+
+.bloque-horario-item-tabla .bloque-aula {
+    font-size: 0.35rem;
+    opacity: 0.7;
+    white-space: nowrap;
+}
+
+.bloque-horario-item-tabla .bloque-acciones {
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    display: flex;
+    gap: 1px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.bloque-horario-item-tabla:hover .bloque-acciones {
+    opacity: 1;
+}
+
+.bloque-horario-item-tabla .bloque-acciones button {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: none;
+    font-size: 0.35rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    color: white;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.bloque-horario-item-tabla .bloque-acciones button:hover {
+    transform: scale(1.2);
+}
+
+.bloque-horario-item-tabla .bloque-acciones .btn-editar-bloque:hover {
+    background: rgba(102, 126, 234, 0.9);
+}
+
+.bloque-horario-item-tabla .bloque-acciones .btn-eliminar-bloque:hover {
+    background: rgba(229, 62, 62, 0.9);
+}
+
+/* ===== MODAL BLOQUE ===== */
+.modal-bloque .modal-content {
+    max-width: 500px;
+}
+
+.modal-bloque .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+}
+
+.modal-bloque .form-group {
+    margin-bottom: 0.8rem;
+}
+
+.modal-bloque .form-group label {
+    display: block;
+    margin-bottom: 0.2rem;
+    font-weight: 600;
+    color: #2d3748;
+    font-size: 0.8rem;
+}
+
+.modal-bloque .form-group input,
+.modal-bloque .form-group select,
+.modal-bloque .form-group textarea {
+    width: 100%;
+    padding: 0.5rem 0.8rem;
+    border: 1px solid rgba(226, 232, 240, 0.6);
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-family: inherit;
+    background: rgba(255, 255, 255, 0.6);
+    transition: all 0.3s ease;
+}
+
+.modal-bloque .form-group input:focus,
+.modal-bloque .form-group select:focus,
+.modal-bloque .form-group textarea:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    background: white;
+}
+
+.modal-bloque .form-group input[type="color"] {
+    height: 44px;
+    padding: 4px;
+    cursor: pointer;
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
-    .horario-container {
+    .horario-container-principal {
         flex-direction: column;
     }
-    .horario-bloques-panel {
+    .horario-panel-bloques {
         flex: 1;
         max-height: 250px;
     }
-    .bloques-grid {
+    .horario-bloques-grid {
         grid-template-columns: repeat(4, 1fr);
     }
-    .horario-semanal {
-        overflow-x: auto;
+    .horario-tabla-wrapper {
+        overflow: auto;
+        max-height: 450px;
     }
-    .horario-header, .horario-fila {
+    .horario-tabla {
         min-width: 700px;
     }
 }
@@ -833,21 +1213,132 @@
         font-size: 0.8rem;
         padding: 0.5rem 1rem;
     }
+    .horario-constructor .horario-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .horario-constructor .horario-actions {
+        justify-content: stretch;
+    }
+    .horario-constructor .horario-actions .btn {
+        flex: 1;
+        justify-content: center;
+        font-size: 0.65rem;
+        padding: 0.3rem 0.5rem;
+    }
+    .horario-panel-bloques {
+        max-height: 200px;
+    }
+    .horario-bloques-scroll {
+        max-height: 60px;
+    }
+    .horario-bloques-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.3rem;
+    }
+    .horario-bloque-item {
+        padding: 0.3rem 0.3rem;
+        font-size: 0.6rem;
+    }
+    .horario-bloque-item .bloque-nombre {
+        font-size: 0.55rem;
+    }
+    .horario-tabla {
+        min-width: 550px;
+        font-size: 0.65rem;
+    }
+    .horario-tabla .hora-columna {
+        width: 35px;
+        min-width: 35px;
+        font-size: 0.5rem;
+    }
+    .horario-tabla td:not(.hora-columna) {
+        height: 32px;
+        min-height: 32px;
+    }
+    .horario-tabla td .celda-content {
+        min-height: 32px;
+    }
+    .bloque-horario-item-tabla {
+        font-size: 0.4rem;
+        min-height: 24px;
+        padding: 0.05rem 0.1rem;
+    }
+    .bloque-horario-item-tabla .bloque-titulo {
+        font-size: 0.45rem;
+    }
+    .bloque-horario-item-tabla .bloque-hora {
+        display: none;
+    }
+    .bloque-horario-item-tabla .bloque-aula {
+        display: none;
+    }
+    .horario-personalizado .personalizado-row input[type="text"] {
+        min-width: 35px;
+        font-size: 0.55rem;
+    }
+    .horario-personalizado .personalizado-row input[type="number"] {
+        width: 30px;
+        font-size: 0.55rem;
+    }
+    .horario-tabs {
+        gap: 0.3rem;
+        padding: 0.2rem;
+    }
+    .horario-tab-btn {
+        font-size: 0.65rem;
+        padding: 0.2rem 0.6rem;
+    }
+    .horario-vista-previa table {
+        min-width: 400px;
+        font-size: 0.6rem;
+    }
 }
 
 @media (max-width: 600px) {
-    .bloques-grid {
+    .horario-bloques-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-    .horario-header, .horario-fila {
+    .horario-tabla {
         min-width: 500px;
-        min-height: 35px;
-    }
-    .horario-hora {
         font-size: 0.55rem;
     }
-    .horario-celda .bloque-horario {
-        font-size: 0.55rem;
+    .horario-tabla .hora-columna {
+        width: 30px;
+        min-width: 30px;
+        font-size: 0.45rem;
+    }
+    .horario-tabla td:not(.hora-columna) {
+        height: 28px;
+        min-height: 28px;
+    }
+    .horario-tabla td .celda-content {
+        min-height: 28px;
+    }
+    .bloque-horario-item-tabla {
+        font-size: 0.35rem;
+        min-height: 20px;
+        padding: 0.03rem 0.08rem;
+    }
+    .bloque-horario-item-tabla .bloque-titulo {
+        font-size: 0.4rem;
+    }
+    .horario-panel-bloques {
+        max-height: 180px;
+    }
+    .horario-bloques-scroll {
+        max-height: 50px;
+    }
+    .horario-vista-previa table {
+        min-width: 340px;
+        font-size: 0.5rem;
+    }
+    .horario-vista-previa .bloque-vista {
+        font-size: 0.4rem;
+        min-height: 18px;
+    }
+    .horario-vista-previa .bloque-vista .bloque-titulo-vista {
+        font-size: 0.4rem;
     }
     .recordatorio-banner {
         flex-direction: column;
@@ -862,186 +1353,54 @@
         flex-direction: column;
         align-items: stretch;
     }
-}
-/* ===== ESTILOS PARA ARRASTRE LIBRE Y ELIMINACIÓN ===== */
-
-/* Zonas de eliminación */
-.zona-eliminacion {
-    transition: all 0.3s ease !important;
-    font-family: 'Inter', system-ui, sans-serif;
-}
-
-.zona-eliminacion.active {
-    background: rgba(229, 62, 62, 0.2) !important;
-    border-color: #e53e3e !important;
-    border-width: 2px !important;
-    color: #e53e3e !important;
-    width: 80px !important;
-    font-size: 0.8rem !important;
-}
-
-.zona-eliminacion.active span {
-    display: block !important;
-    font-size: 0.7rem;
-    font-weight: 600;
-    margin-top: 0.2rem;
-}
-
-.zona-eliminacion span {
-    display: none;
-}
-
-.zona-eliminacion i {
-    font-size: 1.2rem;
-}
-
-/* Bloque en arrastre */
-.bloque-horario.arrastrando {
-    opacity: 0.5;
-    transform: scale(0.95);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    cursor: grabbing;
-}
-
-/* Clon de arrastre */
-.bloque-horario-clon {
-    position: fixed;
-    pointer-events: none;
-    z-index: 1000;
-    opacity: 0.9;
-    transform: scale(1.05);
-    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
-    border-radius: 8px;
-    font-size: 0.65rem;
-    font-weight: 600;
-    color: white;
-    padding: 0.3rem 0.6rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    line-height: 1.3;
-}
-
-/* ===== EFECTO DE ELIMINACIÓN ===== */
-@keyframes eliminarBloque {
-    0% {
-        transform: scale(1);
-        opacity: 1;
-    }
-    50% {
-        transform: scale(1.3) rotate(10deg);
-        opacity: 0.7;
-    }
-    100% {
-        transform: scale(0) rotate(20deg);
-        opacity: 0;
+    .modal-bloque .form-row {
+        grid-template-columns: 1fr;
     }
 }
 
-.bloque-horario.eliminando {
-    animation: eliminarBloque 0.5s ease forwards;
-}
-/* ===== ESTILOS PARA ARRASTRE LIBRE ===== */
-
-/* Zonas de destino (días) */
-.zona-destino {
-    position: fixed;
-    pointer-events: none;
-    z-index: 999;
-    opacity: 0;
-    transition: all 0.3s ease;
-}
-
-.zona-destino.visible {
-    opacity: 1;
-    height: 6px !important;
-    background: #667eea !important;
-    box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
-}
-
-/* Celdas destino resaltadas */
-.horario-celda.drag-target {
-    background: rgba(102, 126, 234, 0.15) !important;
-    border-color: #667eea !important;
-    border-style: solid !important;
-    box-shadow: inset 0 0 20px rgba(102, 126, 234, 0.05);
-}
-
-/* Bloque en movimiento */
-.bloque-horario.moviendo {
-    opacity: 0.3;
-    transform: scale(0.95);
-}
-
-/* Clon de arrastre */
-.bloque-horario-clon {
-    position: fixed !important;
-    pointer-events: none !important;
-    z-index: 1000 !important;
-    opacity: 0.9 !important;
-    transform: scale(1.05) !important;
-    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3) !important;
-    border-radius: 8px !important;
-    font-size: 0.65rem !important;
-    font-weight: 600 !important;
-    color: white !important;
-    padding: 0.3rem 0.6rem !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
-    text-align: center !important;
-    line-height: 1.3 !important;
-    min-width: 80px !important;
-    min-height: 50px !important;
-}
-/* ===== BLOQUES ALARGADOS ===== */
-
-/* Bloques combinados (más altos) */
-.horario-celda .bloque-horario.combinado {
-    min-height: 60px;
-    font-size: 0.7rem;
-    border-left: 3px solid rgba(255, 255, 255, 0.3);
-    border-right: 3px solid rgba(255, 255, 255, 0.3);
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 0.3rem 0.4rem;
-}
-
-/* ===== ZONAS DE DESTINO ===== */
-.zona-destino {
-    position: fixed;
-    pointer-events: none;
-    z-index: 999;
-    opacity: 0;
-    transition: all 0.3s ease;
-}
-
-.zona-destino.visible {
-    opacity: 1;
-    height: 6px !important;
-    background: #667eea !important;
-    box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
-}
-
-.horario-celda.drag-target {
-    background: rgba(102, 126, 234, 0.15) !important;
-    border-color: #667eea !important;
-    border-style: solid !important;
-    box-shadow: inset 0 0 20px rgba(102, 126, 234, 0.05);
-}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 600px) {
-    .horario-celda .bloque-horario.combinado {
-        min-height: 50px;
+@media (max-width: 480px) {
+    .horario-bloques-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .horario-tabla {
+        min-width: 380px;
         font-size: 0.55rem;
-        padding: 0.2rem 0.3rem;
+    }
+    .horario-tabla .hora-columna {
+        width: 30px;
+        min-width: 30px;
+        font-size: 0.45rem;
+    }
+    .horario-tabla td:not(.hora-columna) {
+        height: 28px;
+        min-height: 28px;
+    }
+    .horario-tabla td .celda-content {
+        min-height: 28px;
+    }
+    .bloque-horario-item-tabla {
+        font-size: 0.35rem;
+        min-height: 20px;
+        padding: 0.03rem 0.08rem;
+    }
+    .bloque-horario-item-tabla .bloque-titulo {
+        font-size: 0.4rem;
+    }
+    .horario-panel-bloques {
+        max-height: 180px;
+    }
+    .horario-bloques-scroll {
+        max-height: 50px;
+    }
+    .horario-vista-previa table {
+        min-width: 340px;
+        font-size: 0.5rem;
+    }
+    .horario-vista-previa .bloque-vista {
+        font-size: 0.4rem;
+        min-height: 18px;
+    }
+    .horario-vista-previa .bloque-vista .bloque-titulo-vista {
+        font-size: 0.4rem;
     }
 }

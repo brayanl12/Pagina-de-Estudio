@@ -24,68 +24,105 @@
 
     <!-- ===== TAB 1: MIS CLASES ===== -->
     <div id="tab-clases" class="tab-content active">
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
-            <div>
-                <h1>🎓 Mis Clases</h1>
-                <p class="text-muted">Gestiona tus clases virtuales y recibe recordatorios</p>
-            </div>
-            <button class="btn btn-primary" onclick="abrirAgregarClase()">
-                <i class="fas fa-plus"></i> Agregar Clase
-            </button>
-        </div>
-
-        <div class="clases-controls">
-            <div class="vista-selector">
-                <button class="vista-btn active" onclick="cambiarVista('grid')"><i class="fas fa-th"></i></button>
-                <button class="vista-btn" onclick="cambiarVista('horizontal')"><i class="fas fa-th-list"></i></button>
-                <button class="vista-btn" onclick="cambiarVista('vertical')"><i class="fas fa-list"></i></button>
-            </div>
-            <div class="filtros-clases">
-                <select id="filtro-modalidad" onchange="aplicarFiltros()">
-                    <option value="todas">📌 Todas las modalidades</option>
-                    <option value="virtual">💻 Virtual</option>
-                    <option value="presencial">🏫 Presencial</option>
-                    <option value="hibrida">🔄 Híbrida</option>
-                </select>
-                <select id="filtro-estado" onchange="aplicarFiltros()">
-                    <option value="todas">📌 Todos los estados</option>
-                    <option value="proxima">🔜 Próximas</option>
-                    <option value="en-curso">🟢 En curso</option>
-                    <option value="terminada">✅ Terminadas</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="clases-container">
-            <div class="clases-lista">
-                <div class="clases-header">
-                    <h3>📋 Mis Clases</h3>
-                    <span id="clases-count" style="font-size: 0.8rem; color: #718096;">0 clases</span>
+        <!-- ===== SECCIÓN DE HORARIOS GUARDADOS ===== -->
+        <div style="margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <div>
+                    <h3 style="margin: 0; font-size: 1.1rem;">📅 Mis Horarios</h3>
+                    <p style="font-size: 0.8rem; color: #718096; margin: 0;">Selecciona un horario para verlo</p>
                 </div>
-                <div id="clases-lista-container"></div>
-            </div>
-
-            <div class="clases-calendario">
-                <div class="calendario-header">
-                    <button onclick="cambiarMes(-1)"><i class="fas fa-chevron-left"></i></button>
-                    <span class="mes" id="mes-actual">Junio 2026</span>
-                    <button onclick="cambiarMes(1)"><i class="fas fa-chevron-right"></i></button>
-                </div>
-                <div class="calendario-grid" id="calendario-grid"></div>
-                <div style="margin-top: 0.8rem; padding-top: 0.8rem; border-top: 1px solid rgba(226, 232, 240, 0.3);">
-                    <p style="font-size: 0.7rem; color: #718096;">
-                        <span style="display: inline-block; width: 8px; height: 8px; background: #48bb78; border-radius: 50%; margin-right: 0.3rem;"></span>
-                        Clase programada
-                        <span style="display: inline-block; width: 8px; height: 8px; background: #f6d365; border-radius: 50%; margin-left: 0.8rem; margin-right: 0.3rem;"></span>
-                        Múltiples
-                        <span style="display: inline-block; width: 8px; height: 8px; background: #a0aec0; border-radius: 50%; margin-left: 0.8rem; margin-right: 0.3rem;"></span>
-                        Pasada
-                    </p>
-                </div>
-                <div style="margin-top: 0.5rem; text-align: center;">
-                    <button class="btn btn-secondary btn-sm" onclick="irAHoy()" style="font-size: 0.75rem;">
-                        <i class="fas fa-calendar-day"></i> Hoy
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                    <button class="btn btn-primary btn-sm" onclick="crearNuevoHorario()" style="font-size: 0.75rem;">
+                        <i class="fas fa-plus"></i> Nuevo Horario
                     </button>
+                    <button class="btn btn-secondary btn-sm" id="btn-toggle-bloqueo-clases" onclick="toggleBloqueoHorario()" style="font-size: 0.75rem;">
+                        <i class="fas fa-lock" id="icono-candado-clases"></i> <span id="texto-bloqueo-clases">Bloqueado</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Botones de horarios -->
+            <div class="horario-tabs" id="horario-tabs-clases">
+                <!-- Los horarios se cargan dinámicamente -->
+            </div>
+            
+            <!-- Vista del horario seleccionado (MISMA QUE EL CONSTRUCTOR) -->
+            <div class="horario-vista-previa" id="vista-horario-clases">
+                <div class="candado-badge" id="candado-badge-clases">
+                    <i class="fas fa-lock" id="icono-candado-clases"></i>
+                    <span id="texto-candado-clases">Solo lectura</span>
+                </div>
+                <div id="horario-vista-previa-contenido" style="overflow-x: auto; min-height: 60px;">
+                    <!-- Se renderiza con la misma función que el constructor -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== MIS CLASES (DEBAJO DEL HORARIO) ===== -->
+        <div style="margin-top: 1.5rem; border-top: 2px solid rgba(226,232,240,0.3); padding-top: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
+                <div>
+                    <h3>🎓 Mis Clases</h3>
+                    <p class="text-muted">Gestiona tus clases virtuales y recibe recordatorios</p>
+                </div>
+                <button class="btn btn-primary" onclick="abrirAgregarClase()">
+                    <i class="fas fa-plus"></i> Agregar Clase
+                </button>
+            </div>
+
+            <div class="clases-controls">
+                <div class="vista-selector">
+                    <button class="vista-btn active" onclick="cambiarVista('grid')"><i class="fas fa-th"></i></button>
+                    <button class="vista-btn" onclick="cambiarVista('horizontal')"><i class="fas fa-th-list"></i></button>
+                    <button class="vista-btn" onclick="cambiarVista('vertical')"><i class="fas fa-list"></i></button>
+                </div>
+                <div class="filtros-clases">
+                    <select id="filtro-modalidad" onchange="aplicarFiltros()">
+                        <option value="todas">📌 Todas las modalidades</option>
+                        <option value="virtual">💻 Virtual</option>
+                        <option value="presencial">🏫 Presencial</option>
+                        <option value="hibrida">🔄 Híbrida</option>
+                    </select>
+                    <select id="filtro-estado" onchange="aplicarFiltros()">
+                        <option value="todas">📌 Todos los estados</option>
+                        <option value="proxima">🔜 Próximas</option>
+                        <option value="en-curso">🟢 En curso</option>
+                        <option value="terminada">✅ Terminadas</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="clases-container" style="margin-top: 1rem;">
+                <div class="clases-lista" style="max-height: 500px;">
+                    <div class="clases-header">
+                        <h3>📋 Mis Clases</h3>
+                        <span id="clases-count" style="font-size: 0.8rem; color: #718096;">0 clases</span>
+                    </div>
+                    <div id="clases-lista-container"></div>
+                </div>
+
+                <div class="clases-calendario">
+                    <div class="calendario-header">
+                        <button onclick="cambiarMes(-1)"><i class="fas fa-chevron-left"></i></button>
+                        <span class="mes" id="mes-actual">Junio 2026</span>
+                        <button onclick="cambiarMes(1)"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="calendario-grid" id="calendario-grid"></div>
+                    <div style="margin-top: 0.8rem; padding-top: 0.8rem; border-top: 1px solid rgba(226, 232, 240, 0.3);">
+                        <p style="font-size: 0.7rem; color: #718096;">
+                            <span style="display: inline-block; width: 8px; height: 8px; background: #48bb78; border-radius: 50%; margin-right: 0.3rem;"></span>
+                            Clase programada
+                            <span style="display: inline-block; width: 8px; height: 8px; background: #f6d365; border-radius: 50%; margin-left: 0.8rem; margin-right: 0.3rem;"></span>
+                            Múltiples
+                            <span style="display: inline-block; width: 8px; height: 8px; background: #a0aec0; border-radius: 50%; margin-left: 0.8rem; margin-right: 0.3rem;"></span>
+                            Pasada
+                        </p>
+                    </div>
+                    <div style="margin-top: 0.5rem; text-align: center;">
+                        <button class="btn btn-secondary btn-sm" onclick="irAHoy()" style="font-size: 0.75rem;">
+                            <i class="fas fa-calendar-day"></i> Hoy
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -93,268 +130,371 @@
 
     <!-- ===== TAB 2: CONSTRUCTOR DE HORARIO ===== -->
     <div id="tab-horario" class="tab-content">
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
-            <div>
-                <h1>🕐 Constructor de Horario</h1>
-                <p class="text-muted">Arrastra los bloques al horario para crear tu rutina semanal</p>
+        <div class="horario-constructor">
+            <!-- Encabezado centrado -->
+            <div style="text-align: center; margin-bottom: 1rem;">
+                <h2 style="font-size: 1.5rem; font-weight: 700; color: #1a202c; margin: 0;">🕐 Constructor de Horario</h2>
+                <p style="font-size: 0.85rem; color: #718096; margin: 0.2rem 0 0;">Arrastra bloques desde el panel lateral o haz clic en un bloque para crear</p>
             </div>
-            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                <button class="btn btn-secondary" onclick="limpiarHorario()"><i class="fas fa-eraser"></i> Limpiar</button>
-                <button class="btn btn-primary" onclick="guardarHorario()"><i class="fas fa-save"></i> Guardar Horario</button>
-                <button class="btn btn-success" onclick="abrirAgregarClase()"><i class="fas fa-plus"></i> Agregar Clase</button>
+
+            <!-- Acciones alineadas a la derecha -->
+            <div style="display: flex; justify-content: flex-end; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem;">
+                <button class="btn btn-secondary btn-sm" id="btn-seleccionar" title="Seleccionar rango de horas">
+                    <i class="fas fa-vector-square"></i> Seleccionar
+                </button>
+                <button class="btn btn-primary btn-sm" id="btn-guardar-horario">
+                    <i class="fas fa-save"></i> Guardar
+                </button>
+                <button class="btn btn-secondary btn-sm" id="btn-exportar-png">
+                    <i class="fas fa-image"></i> PNG
+                </button>
+                <button class="btn btn-secondary btn-sm" id="btn-exportar-pdf">
+                    <i class="fas fa-file-pdf"></i> PDF
+                </button>
+                <button class="btn btn-danger btn-sm" id="btn-limpiar-horario">
+                    <i class="fas fa-eraser"></i> Limpiar
+                </button>
+                <button class="btn btn-success btn-sm" id="btn-agregar-bloque" onclick="abrirModalCrearBloqueDesdeBoton()">
+                    <i class="fas fa-plus"></i> Añadir Bloque
+                </button>
+                <button class="btn btn-secondary btn-sm" id="btn-toggle-bloqueo-constructor" onclick="toggleBloqueoHorario()" style="font-size: 0.75rem;">
+                    <i class="fas fa-lock" id="icono-bloqueo-constructor"></i> <span id="texto-bloqueo-constructor">Bloqueado</span>
+                </button>
+            </div>
+
+            <!-- Botones de horarios en el constructor -->
+            <div class="horario-tabs" id="horario-tabs-constructor">
+                <!-- Los horarios se cargan dinámicamente -->
+            </div>
+
+            <!-- Contenedor Principal: Panel de Bloques + Tabla -->
+            <div class="horario-container-principal">
+                
+                <!-- PANEL DE BLOQUES (LADO IZQUIERDO) -->
+                <div class="horario-panel-bloques">
+                    <div class="panel-titulo">🧩 Bloques</div>
+                    <div class="panel-subtitulo">Haz clic en un bloque para crear o arrastra</div>
+                    
+                    <!-- Scroll de bloques -->
+                    <div class="horario-bloques-scroll">
+                        <div class="horario-bloques-grid" id="bloques-grid">
+                            <div class="horario-bloque-item" data-color="#667eea" data-tipo="clase" data-duracion="1">
+                                <div class="bloque-color" style="background: #667eea;"></div>
+                                <span class="bloque-nombre">📚 Clase</span>
+                                <span class="bloque-duracion">1h</span>
+                            </div>
+                            <div class="horario-bloque-item" data-color="#48bb78" data-tipo="estudio" data-duracion="1">
+                                <div class="bloque-color" style="background: #48bb78;"></div>
+                                <span class="bloque-nombre">📖 Estudio</span>
+                                <span class="bloque-duracion">1h</span>
+                            </div>
+                            <div class="horario-bloque-item" data-color="#f6d365" data-tipo="almuerzo" data-duracion="1">
+                                <div class="bloque-color" style="background: #f6d365;"></div>
+                                <span class="bloque-nombre">🍽️ Almuerzo</span>
+                                <span class="bloque-duracion">1h</span>
+                            </div>
+                            <div class="horario-bloque-item" data-color="#a29bfe" data-tipo="descanso" data-duracion="1">
+                                <div class="bloque-color" style="background: #a29bfe;"></div>
+                                <span class="bloque-nombre">☕ Descanso</span>
+                                <span class="bloque-duracion">1h</span>
+                            </div>
+                            <div class="horario-bloque-item" data-color="#2d3748" data-tipo="dormir" data-duracion="8">
+                                <div class="bloque-color" style="background: #2d3748;"></div>
+                                <span class="bloque-nombre">😴 Dormir</span>
+                                <span class="bloque-duracion">8h</span>
+                            </div>
+                            <div class="horario-bloque-item" data-color="#fc8181" data-tipo="ejercicio" data-duracion="1">
+                                <div class="bloque-color" style="background: #fc8181;"></div>
+                                <span class="bloque-nombre">🏃 Ejercicio</span>
+                                <span class="bloque-duracion">1h</span>
+                            </div>
+                            <div class="horario-bloque-item" data-color="#f687b3" data-tipo="ocio" data-duracion="1">
+                                <div class="bloque-color" style="background: #f687b3;"></div>
+                                <span class="bloque-nombre">🎮 Ocio</span>
+                                <span class="bloque-duracion">1h</span>
+                            </div>
+                            <div class="horario-bloque-item" data-color="#9ae6b4" data-tipo="trabajo" data-duracion="4">
+                                <div class="bloque-color" style="background: #9ae6b4;"></div>
+                                <span class="bloque-nombre">💼 Trabajo</span>
+                                <span class="bloque-duracion">4h</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Personalización -->
+                    <div class="horario-personalizado">
+                        <h4>➕ Crear personalizado</h4>
+                        <div class="personalizado-row">
+                            <input type="text" id="bloque-personalizado-nombre" placeholder="Nombre" title="Nombre del bloque">
+                            <input type="color" id="bloque-personalizado-color" value="#667eea" title="Color">
+                            <input type="number" id="bloque-personalizado-duracion" placeholder="H" value="1" min="0.5" max="12" step="0.5" title="Duración en horas">
+                            <button class="btn btn-primary btn-sm" onclick="agregarBloquePersonalizado()" title="Agregar bloque al panel">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Leyenda -->
+                    <div class="horario-leyenda-panel">
+                        <div class="leyenda-titulo">📌 Colores</div>
+                        <div class="leyenda-grid">
+                            <div class="leyenda-item">
+                                <span class="leyenda-color" style="background: #667eea;"></span> Clase
+                            </div>
+                            <div class="leyenda-item">
+                                <span class="leyenda-color" style="background: #48bb78;"></span> Estudio
+                            </div>
+                            <div class="leyenda-item">
+                                <span class="leyenda-color" style="background: #f6d365;"></span> Almuerzo
+                            </div>
+                            <div class="leyenda-item">
+                                <span class="leyenda-color" style="background: #a29bfe;"></span> Descanso
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TABLA DEL HORARIO -->
+                <div class="horario-tabla-wrapper" style="overflow: auto; max-height: 650px;">
+                    <table class="horario-tabla">
+                        <thead>
+                            <tr>
+                                <th class="hora-columna">Hora</th>
+                                <th>Lunes</th>
+                                <th>Martes</th>
+                                <th>Miércoles</th>
+                                <th>Jueves</th>
+                                <th>Viernes</th>
+                            </tr>
+                        </thead>
+                        <tbody id="horario-tabla-body"></tbody>
+                    </table>
+                </div>
             </div>
         </div>
+    </div>
 
-        <div class="horario-container">
-            <!-- Panel de Bloques -->
-            <div class="horario-bloques-panel">
-                <h3>🧩 Bloques de Actividad</h3>
-                <p style="font-size: 0.8rem; color: #718096; margin-bottom: 1rem;">Arrastra los bloques al horario</p>
-                
-                <div class="bloques-grid" id="bloques-grid">
-                    <div class="bloque-item" draggable="true" data-color="#667eea" data-tipo="clase" data-duracion="2">
-                        <div class="bloque-color" style="background: #667eea;"></div>
-                        <span>📚 Clase</span>
-                        <span class="bloque-duracion">2h</span>
-                    </div>
-                    <div class="bloque-item" draggable="true" data-color="#48bb78" data-tipo="estudio" data-duracion="1.5">
-                        <div class="bloque-color" style="background: #48bb78;"></div>
-                        <span>📖 Estudio</span>
-                        <span class="bloque-duracion">1.5h</span>
-                    </div>
-                    <div class="bloque-item" draggable="true" data-color="#f6d365" data-tipo="almuerzo" data-duracion="1">
-                        <div class="bloque-color" style="background: #f6d365;"></div>
-                        <span>🍽️ Almuerzo</span>
-                        <span class="bloque-duracion">1h</span>
-                    </div>
-                    <div class="bloque-item" draggable="true" data-color="#a29bfe" data-tipo="descanso" data-duracion="0.5">
-                        <div class="bloque-color" style="background: #a29bfe;"></div>
-                        <span>☕ Descanso</span>
-                        <span class="bloque-duracion">30min</span>
-                    </div>
-                    <div class="bloque-item" draggable="true" data-color="#2d3748" data-tipo="dormir" data-duracion="8">
-                        <div class="bloque-color" style="background: #2d3748;"></div>
-                        <span>😴 Dormir</span>
-                        <span class="bloque-duracion">8h</span>
-                    </div>
-                    <div class="bloque-item" draggable="true" data-color="#fc8181" data-tipo="ejercicio" data-duracion="1">
-                        <div class="bloque-color" style="background: #fc8181;"></div>
-                        <span>🏃 Ejercicio</span>
-                        <span class="bloque-duracion">1h</span>
-                    </div>
-                    <div class="bloque-item" draggable="true" data-color="#f687b3" data-tipo="ocio" data-duracion="1">
-                        <div class="bloque-color" style="background: #f687b3;"></div>
-                        <span>🎮 Ocio</span>
-                        <span class="bloque-duracion">1h</span>
-                    </div>
-                    <div class="bloque-item" draggable="true" data-color="#9ae6b4" data-tipo="trabajo" data-duracion="4">
-                        <div class="bloque-color" style="background: #9ae6b4;"></div>
-                        <span>💼 Trabajo</span>
-                        <span class="bloque-duracion">4h</span>
+    <!-- ===== MODALES DE CLASES ===== -->
+    <div id="modal-agregar-clase" class="modal">
+        <div class="modal-content" style="max-width: 600px;">
+            <div class="modal-header">
+                <h2 id="modal-agregar-titulo">📚 Agregar Clase</h2>
+                <button class="modal-close" onclick="cerrarModalAgregarClase()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <input type="hidden" id="clase-edit-id">
+            <div class="form-group">
+                <label>Nombre de la clase *</label>
+                <input type="text" id="clase-nombre" placeholder="Ej: Clase de Matemáticas">
+            </div>
+            <div class="form-group">
+                <label>Materia</label>
+                <select id="clase-materia">
+                    <option value="general">📚 General</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Modalidad *</label>
+                <select id="clase-modalidad" onchange="actualizarCamposModalidad()">
+                    <option value="virtual">💻 Virtual</option>
+                    <option value="presencial">🏫 Presencial</option>
+                    <option value="hibrida">🔄 Híbrida</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Plataforma</label>
+                <select id="clase-plataforma">
+                    <option value="zoom">Zoom</option>
+                    <option value="meet">Google Meet</option>
+                    <option value="teams">Microsoft Teams</option>
+                    <option value="otro">Otro</option>
+                </select>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem;">
+                <div class="form-group">
+                    <label>Fecha *</label>
+                    <input type="date" id="clase-fecha">
+                </div>
+                <div class="form-group">
+                    <label>Hora *</label>
+                    <input type="time" id="clase-hora">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Duración (minutos)</label>
+                <input type="number" id="clase-duracion" value="60" min="15" max="180" step="15">
+            </div>
+            <div class="form-group">
+                <label>Repetir clase</label>
+                <select id="clase-repeticion" onchange="mostrarOpcionesRepeticion()">
+                    <option value="ninguna">No repetir</option>
+                    <option value="diaria">📅 Todos los días</option>
+                    <option value="semanal">📅 Todas las semanas</option>
+                    <option value="quincenal">📅 Cada 15 días</option>
+                    <option value="mensual">📅 Cada mes</option>
+                </select>
+            </div>
+            <div id="dias-semana-container" style="display: none; margin-bottom: 0.8rem; padding: 0.8rem; background: rgba(255,255,255,0.4); border-radius: 12px;">
+                <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.3rem;">Días de la semana</label>
+                <div style="display: flex; gap: 0.3rem; flex-wrap: wrap;">
+                    <label class="dia-checkbox"><input type="checkbox" value="1"> Lun</label>
+                    <label class="dia-checkbox"><input type="checkbox" value="2"> Mar</label>
+                    <label class="dia-checkbox"><input type="checkbox" value="3"> Mié</label>
+                    <label class="dia-checkbox"><input type="checkbox" value="4"> Jue</label>
+                    <label class="dia-checkbox"><input type="checkbox" value="5"> Vie</label>
+                    <label class="dia-checkbox"><input type="checkbox" value="6"> Sáb</label>
+                    <label class="dia-checkbox"><input type="checkbox" value="0"> Dom</label>
+                </div>
+            </div>
+            <div id="repeticion-hasta-container" style="display: none; margin-bottom: 0.8rem;">
+                <div class="form-group">
+                    <label>Repetir hasta</label>
+                    <input type="date" id="clase-repeticion-hasta">
+                </div>
+            </div>
+            <div style="margin-bottom: 0.8rem;">
+                <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.3rem;">Horarios adicionales (mismo día)</label>
+                <div id="horarios-adicionales-container">
+                    <div class="horario-adicional">
+                        <input type="time" class="horario-adicional-input" placeholder="Hora">
+                        <button class="btn btn-danger btn-sm" onclick="eliminarHorarioAdicional(this)">✕</button>
                     </div>
                 </div>
-                
-                <div class="bloque-personalizado">
-                    <h4 style="font-size: 0.85rem; margin-bottom: 0.5rem;">➕ Crear bloque personalizado</h4>
-                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                        <input type="text" id="bloque-personalizado-nombre" placeholder="Nombre" style="flex: 1; min-width: 80px; padding: 0.4rem; border: 1px solid #dce4ec; border-radius: 8px; font-size: 0.85rem;">
-                        <input type="color" id="bloque-personalizado-color" value="#667eea" style="width: 40px; height: 40px; border: none; padding: 0; cursor: pointer;">
-                        <input type="number" id="bloque-personalizado-duracion" placeholder="Horas" value="1" min="0.5" max="12" step="0.5" style="width: 60px; padding: 0.4rem; border: 1px solid #dce4ec; border-radius: 8px; font-size: 0.85rem;">
-                        <button class="btn btn-primary btn-sm" onclick="agregarBloquePersonalizado()">
-                            <i class="fas fa-plus"></i>
-                        </button>
-                    </div>
+                <button class="btn btn-secondary btn-sm" onclick="agregarHorarioAdicional()" style="margin-top: 0.3rem; font-size: 0.8rem;">
+                    <i class="fas fa-plus"></i> Agregar otro horario
+                </button>
+            </div>
+            <div class="form-group" id="campo-enlace-clase">
+                <label>Enlace de la clase</label>
+                <input type="url" id="clase-enlace" placeholder="https://zoom.us/j/...">
+                <small style="color: #718096; font-size: 0.75rem;">Pega el enlace de la videollamada</small>
+            </div>
+            <div class="form-group" id="campo-ubicacion-clase" style="display: none;">
+                <label>Ubicación</label>
+                <input type="text" id="clase-ubicacion" placeholder="Ej: Aula 301, Edificio Principal">
+            </div>
+            <div class="form-group">
+                <label>Recordatorio (minutos antes)</label>
+                <select id="clase-recordatorio">
+                    <option value="5">5 minutos</option>
+                    <option value="10" selected>10 minutos</option>
+                    <option value="15">15 minutos</option>
+                    <option value="30">30 minutos</option>
+                    <option value="60">1 hora</option>
+                </select>
+            </div>
+            <button class="btn btn-success" id="btn-guardar-clase" style="width: 100%; margin-top: 0.5rem;">
+                <i class="fas fa-plus"></i> <span id="btn-guardar-clase-texto">Agregar Clase</span>
+            </button>
+        </div>
+    </div>
+
+    <div id="modal-ver-clase" class="modal">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h2 id="ver-clase-titulo">Clase</h2>
+                <button class="modal-close" onclick="cerrarModalVerClase()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="ver-clase-contenido">
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem;">
+                    <span id="ver-clase-materia" style="background: rgba(102, 126, 234, 0.1); padding: 0.2rem 0.8rem; border-radius: 50px; color: #667eea; font-weight: 600; font-size: 0.85rem;">📚 General</span>
+                    <span id="ver-clase-estado" class="badge-estado proxima">Próxima</span>
                 </div>
-                
-                <div style="margin-top: 1rem; padding-top: 0.8rem; border-top: 1px solid rgba(226, 232, 240, 0.3);">
-                    <p style="font-size: 0.7rem; color: #718096; margin-bottom: 0.3rem;">📌 Leyenda de colores:</p>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.2rem;">
-                        <div style="display: flex; align-items: center; gap: 0.3rem; font-size: 0.65rem; color: #4a5568;">
-                            <span style="display: inline-block; width: 12px; height: 12px; background: #667eea; border-radius: 4px;"></span> Clase
-                        </div>
-                        <div style="display: flex; align-items: center; gap: 0.3rem; font-size: 0.65rem; color: #4a5568;">
-                            <span style="display: inline-block; width: 12px; height: 12px; background: #48bb78; border-radius: 4px;"></span> Estudio
-                        </div>
-                        <div style="display: flex; align-items: center; gap: 0.3rem; font-size: 0.65rem; color: #4a5568;">
-                            <span style="display: inline-block; width: 12px; height: 12px; background: #f6d365; border-radius: 4px;"></span> Almuerzo
-                        </div>
-                        <div style="display: flex; align-items: center; gap: 0.3rem; font-size: 0.65rem; color: #4a5568;">
-                            <span style="display: inline-block; width: 12px; height: 12px; background: #a29bfe; border-radius: 4px;"></span> Descanso
-                        </div>
-                        <div style="display: flex; align-items: center; gap: 0.3rem; font-size: 0.65rem; color: #4a5568;">
-                            <span style="display: inline-block; width: 12px; height: 12px; background: #2d3748; border-radius: 4px;"></span> Dormir
-                        </div>
-                        <div style="display: flex; align-items: center; gap: 0.3rem; font-size: 0.65rem; color: #4a5568;">
-                            <span style="display: inline-block; width: 12px; height: 12px; background: #fc8181; border-radius: 4px;"></span> Ejercicio
-                        </div>
-                    </div>
+                <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem;">
+                    <p><strong>📅 Fecha:</strong> <span id="ver-clase-fecha">-</span></p>
+                    <p><strong>⏰ Hora:</strong> <span id="ver-clase-hora">-</span></p>
+                    <p><strong>⏱ Duración:</strong> <span id="ver-clase-duracion-modal">-</span></p>
+                    <p><strong>💻 Modalidad:</strong> <span id="ver-clase-modalidad-texto">-</span></p>
+                    <p><strong>💻 Plataforma:</strong> <span id="ver-clase-plataforma">-</span></p>
+                    <p><strong>🔗 Enlace:</strong> <a id="ver-clase-enlace" href="#" target="_blank" style="color: #667eea; word-break: break-all;">-</a></p>
+                    <p><strong>📍 Ubicación:</strong> <span id="ver-clase-ubicacion">-</span></p>
+                </div>
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                    <button class="btn btn-primary" onclick="unirseAClase()" style="flex: 1;">
+                        <i class="fas fa-video"></i> Unirse a la clase
+                    </button>
+                    <button class="btn btn-secondary" onclick="abrirEditarClase()">
+                        <i class="fas fa-edit"></i> Editar
+                    </button>
+                    <button class="btn btn-danger" onclick="eliminarClase()">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MODAL CREAR/EDITAR BLOQUE DEL HORARIO ===== -->
+    <div id="modal-crear-bloque" class="modal modal-bloque">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-titulo-bloque">➕ Crear Bloque</h2>
+                <button class="modal-close" id="btn-cerrar-modal-bloque">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <input type="hidden" id="bloque-id">
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Día *</label>
+                    <select id="bloque-dia">
+                        <option value="Lunes">Lunes</option>
+                        <option value="Martes">Martes</option>
+                        <option value="Miércoles">Miércoles</option>
+                        <option value="Jueves">Jueves</option>
+                        <option value="Viernes">Viernes</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Hora de inicio *</label>
+                    <input type="time" id="bloque-hora-inicio" step="1800">
                 </div>
             </div>
 
-            <!-- Horario Semanal -->
-            <div class="horario-semanal" id="horario-semanal">
-                <div class="horario-header">
-                    <div class="hora-label">Hora</div>
-                    <div class="dia-header">Lunes</div>
-                    <div class="dia-header">Martes</div>
-                    <div class="dia-header">Miércoles</div>
-                    <div class="dia-header">Jueves</div>
-                    <div class="dia-header">Viernes</div>
-                    <div class="dia-header">Sábado</div>
-                    <div class="dia-header">Domingo</div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Duración (horas)</label>
+                    <input type="number" id="bloque-duracion" value="1" min="0.5" max="12" step="0.5">
                 </div>
-                <div class="horario-grid" id="horario-grid"></div>
+                <div class="form-group">
+                    <label>Color</label>
+                    <input type="color" id="bloque-color" value="#667eea">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Nombre de la clase *</label>
+                <input type="text" id="bloque-nombre" placeholder="Ej: Matemáticas">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Aula</label>
+                    <input type="text" id="bloque-aula" placeholder="Ej: Aula 301">
+                </div>
+                <div class="form-group">
+                    <label>Profesor</label>
+                    <input type="text" id="bloque-profesor" placeholder="Ej: Dr. Rodríguez">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Texto adicional</label>
+                <textarea id="bloque-texto-adicional" rows="2" placeholder="Notas adicionales..."></textarea>
+            </div>
+
+            <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+                <button class="btn btn-success" id="btn-guardar-bloque" style="flex: 1;">
+                    <i class="fas fa-save"></i> Guardar Bloque
+                </button>
+                <button class="btn btn-secondary" id="btn-cancelar-modal-bloque">
+                    Cancelar
+                </button>
             </div>
         </div>
     </div>
 </section>
-
-<!-- ===== MODALES ===== -->
-<div id="modal-agregar-clase" class="modal">
-    <div class="modal-content" style="max-width: 600px;">
-        <div class="modal-header">
-            <h2>📚 Agregar Clase</h2>
-            <button class="modal-close" onclick="cerrarModalAgregarClase()">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <div class="form-group">
-            <label>Nombre de la clase *</label>
-            <input type="text" id="clase-nombre" placeholder="Ej: Clase de Matemáticas">
-        </div>
-        <div class="form-group">
-            <label>Materia</label>
-            <select id="clase-materia">
-                <option value="general">📚 General</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>Modalidad *</label>
-            <select id="clase-modalidad" onchange="actualizarCamposModalidad()">
-                <option value="virtual">💻 Virtual</option>
-                <option value="presencial">🏫 Presencial</option>
-                <option value="hibrida">🔄 Híbrida</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>Plataforma</label>
-            <select id="clase-plataforma">
-                <option value="zoom">Zoom</option>
-                <option value="meet">Google Meet</option>
-                <option value="teams">Microsoft Teams</option>
-                <option value="otro">Otro</option>
-            </select>
-        </div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem;">
-            <div class="form-group">
-                <label>Fecha *</label>
-                <input type="date" id="clase-fecha">
-            </div>
-            <div class="form-group">
-                <label>Hora *</label>
-                <input type="time" id="clase-hora">
-            </div>
-        </div>
-        <div class="form-group">
-            <label>Duración (minutos)</label>
-            <input type="number" id="clase-duracion" value="60" min="15" max="180" step="15">
-        </div>
-        <div class="form-group">
-            <label>Repetir clase</label>
-            <select id="clase-repeticion" onchange="mostrarOpcionesRepeticion()">
-                <option value="ninguna">No repetir</option>
-                <option value="diaria">📅 Todos los días</option>
-                <option value="semanal">📅 Todas las semanas</option>
-                <option value="quincenal">📅 Cada 15 días</option>
-                <option value="mensual">📅 Cada mes</option>
-            </select>
-        </div>
-        <div id="dias-semana-container" style="display: none; margin-bottom: 0.8rem; padding: 0.8rem; background: rgba(255,255,255,0.4); border-radius: 12px;">
-            <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.3rem;">Días de la semana</label>
-            <div style="display: flex; gap: 0.3rem; flex-wrap: wrap;">
-                <label class="dia-checkbox"><input type="checkbox" value="1"> Lun</label>
-                <label class="dia-checkbox"><input type="checkbox" value="2"> Mar</label>
-                <label class="dia-checkbox"><input type="checkbox" value="3"> Mié</label>
-                <label class="dia-checkbox"><input type="checkbox" value="4"> Jue</label>
-                <label class="dia-checkbox"><input type="checkbox" value="5"> Vie</label>
-                <label class="dia-checkbox"><input type="checkbox" value="6"> Sáb</label>
-                <label class="dia-checkbox"><input type="checkbox" value="0"> Dom</label>
-            </div>
-        </div>
-        <div id="repeticion-hasta-container" style="display: none; margin-bottom: 0.8rem;">
-            <div class="form-group">
-                <label>Repetir hasta</label>
-                <input type="date" id="clase-repeticion-hasta">
-            </div>
-        </div>
-        <div style="margin-bottom: 0.8rem;">
-            <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.3rem;">Horarios adicionales (mismo día)</label>
-            <div id="horarios-adicionales-container">
-                <div class="horario-adicional">
-                    <input type="time" class="horario-adicional-input" placeholder="Hora">
-                    <button class="btn btn-danger btn-sm" onclick="eliminarHorarioAdicional(this)">✕</button>
-                </div>
-            </div>
-            <button class="btn btn-secondary btn-sm" onclick="agregarHorarioAdicional()" style="margin-top: 0.3rem; font-size: 0.8rem;">
-                <i class="fas fa-plus"></i> Agregar otro horario
-            </button>
-        </div>
-        <div class="form-group" id="campo-enlace-clase">
-            <label>Enlace de la clase</label>
-            <input type="url" id="clase-enlace" placeholder="https://zoom.us/j/...">
-            <small style="color: #718096; font-size: 0.75rem;">Pega el enlace de la videollamada</small>
-        </div>
-        <div class="form-group" id="campo-ubicacion-clase" style="display: none;">
-            <label>Ubicación</label>
-            <input type="text" id="clase-ubicacion" placeholder="Ej: Aula 301, Edificio Principal">
-        </div>
-        <div class="form-group">
-            <label>Recordatorio (minutos antes)</label>
-            <select id="clase-recordatorio">
-                <option value="5">5 minutos</option>
-                <option value="10" selected>10 minutos</option>
-                <option value="15">15 minutos</option>
-                <option value="30">30 minutos</option>
-                <option value="60">1 hora</option>
-            </select>
-        </div>
-        <button class="btn btn-success" onclick="agregarClase()" style="width: 100%; margin-top: 0.5rem;">
-            <i class="fas fa-plus"></i> Agregar Clase
-        </button>
-    </div>
-</div>
-
-<div id="modal-ver-clase" class="modal">
-    <div class="modal-content" style="max-width: 500px;">
-        <div class="modal-header">
-            <h2 id="ver-clase-titulo">Clase</h2>
-            <button class="modal-close" onclick="cerrarModalVerClase()">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <div id="ver-clase-contenido">
-            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
-                <span id="ver-clase-materia" style="background: rgba(102, 126, 234, 0.1); padding: 0.2rem 0.8rem; border-radius: 50px; color: #667eea; font-weight: 600; font-size: 0.85rem;">📚 General</span>
-                <span id="ver-clase-modalidad" style="padding: 0.2rem 0.8rem; border-radius: 50px; font-weight: 600; font-size: 0.85rem;">💻 Virtual</span>
-                <span id="ver-clase-estado" class="badge-estado proxima">Próxima</span>
-            </div>
-            <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem;">
-                <p><strong>📅 Fecha:</strong> <span id="ver-clase-fecha">-</span></p>
-                <p><strong>⏰ Hora:</strong> <span id="ver-clase-hora">-</span></p>
-                <p><strong>⏱️ Duración:</strong> <span id="ver-clase-duracion">60 min</span></p>
-                <p><strong>🔄 Repetición:</strong> <span id="ver-clase-repeticion">Ninguna</span></p>
-                <p><strong>💻 Plataforma:</strong> <span id="ver-clase-plataforma">-</span></p>
-                <p id="ver-clase-enlace-row"><strong>🔗 Enlace:</strong> <a id="ver-clase-enlace" href="#" target="_blank" style="color: #667eea; word-break: break-all;">-</a></p>
-                <p id="ver-clase-ubicacion-row" style="display: none;"><strong>📍 Ubicación:</strong> <span id="ver-clase-ubicacion">-</span></p>
-            </div>
-            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                <button class="btn btn-primary" onclick="unirseAClase()" style="flex: 1;">
-                    <i class="fas fa-video"></i> Unirse a la clase
-                </button>
-                <button class="btn btn-danger" onclick="eliminarClase()">
-                    <i class="fas fa-trash"></i>
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
